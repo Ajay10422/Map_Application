@@ -1,10 +1,23 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+
+import LandingPage from "./ui/LandingPage";
+import HomePage from "./ui/HomePage";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <LandingPage />,
+  },
+  {
+    path: "/MapMap",
+    element: <HomePage />,
+  },
+]);
 
 function App() {
-
   function geoFindMe() {
-
     const status = document.querySelector("#status");
     const mapLink = document.querySelector("#map-link");
 
@@ -27,19 +40,19 @@ function App() {
       switch (error.code) {
         case error.PERMISSION_DENIED:
           status.textContent = "User denied the request for geolocation.";
-          break
+          break;
         case error.POSITION_UNAVAILABLE:
           status.textContent = "Location information is currently unavailable.";
-          break
+          break;
         case error.TIMEOUT:
           status.textContent = "Request for user location timed out.";
-          break
+          break;
         case error.UNKNOWN_ERROR:
           status.textContent = "An unknown error occurred.";
-          break
+          break;
         default:
           status.textContent = "An unknown error occurred.";
-          break
+          break;
       }
     }
 
@@ -51,18 +64,7 @@ function App() {
     }
   }
 
-  // document.querySelector("#find-me").addEventListener("click", geoFindMe);
-
-  return (
-    <div className="App">
-      <header className="App-header">
-        <h1>TEST</h1>
-        <button onClick={() => { geoFindMe() }}>FindMe</button>
-        <span id='status'></span>
-        <a id='map-link'>LINK</a>
-      </header>
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
